@@ -1,0 +1,44 @@
+form(class='span2')
+    fieldset
+        legend Brand
+        input(type='hidden',name='brand_id',ng-model='brand.id')
+        label(class='control-label',for='brand_name') Name
+        input(type='text',class='input-large',id='brand_name',ng-model='brand.name')
+        label(class='control-label',for='brand_established') Established
+        input(type='text',class='input-mini',id='brand_established',size='4',ng-model='brand.established')
+        label(class='control-label',for='brand_website') Web Site
+        input(type='text',class='input-large',id='brand_website',size='4',ng-model='brand.website')
+
+        button(type='submit',class='btn btn-primary') Save Brand
+form(class='span10')
+    fieldset
+        legend Cigars
+        table(class='table table-bordered table-striped table-hover')
+            thead
+                tr
+                    th Name
+                    th Brand
+                    th Country
+                    th Length
+                    th Ring Gauge
+                    th Strength
+                    th Vitola
+                    th Color
+                    th Wrapper(s)
+                    th Filler(s)
+                    th Binder(s)
+            tbody
+                tr(ng-repeat='cigar in cigars | orderBy:cigarOrderProp')
+                    td
+                        {{cigar.name}}
+                        button(class='btn btn-primary btn-small',ng-click='modalEdit(cigar)') Edit
+                    td {{cigar.brand}}
+                    td {{cigar.country}}
+                    td {{cigar.length}}
+                    td {{cigar.ring_gauge}}
+                    td {{cigar.strength}}
+                    td {{cigar.vitola}}
+                    td {{cigar.color}}
+                    td {{cigar.wrappers}}
+                    td {{cigar.fillers}}
+                    td {{cigar.binders}}

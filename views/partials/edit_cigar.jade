@@ -1,0 +1,31 @@
+div(class='modal-header')
+    h3 Edit Cigar
+div(class='modal-body')
+    form
+        fieldset
+            input(type='hidden',name='cigar_id',ng-model='cigar.id')
+            label(class='control-label',for='cigar_name') Name
+            input(type='text',class='input-large',id='cigar_name',ng-model='cigar.name')
+            label(class='control-label',for='cigar_brand') Brand
+            input(type='text',class='input-large',id='cigar_name',ng-model='cigar.brand')
+            label(class='control-label',for='cigar_country') Country
+            input(type='text',class='input-large',id='cigar_country',ng-model='cigar.country')
+            label(class='control-label',for='cigar_length') Length
+            input(type='text',class='input-mini',id='cigar_length',ng-model='cigar.length')
+            label(class='control-label',for='cigar_ring_gauge') Ring Gauge
+            input(type='text',class='input-mini',id='cigar_ring_gauge',ng-model='cigar.ring_gauge')
+            label(class='control-label',for='cigar_strength') Strength
+            input(type='text',class='input-small',id='cigar_strength',ng-model='cigar.strength')
+            label(class='control-label',for='cigar_vitola') Vitola
+            input(type='text',class='input-small',id='cigar_vitola',ng-model='cigar.vitola')
+            label(class='control-label',for='cigar_color') Color
+            input(type='text',class='input-small',id='cigar_color',ng-model='cigar.color')
+            label(class='control-label',for='cigar_wrappers') Wrapper(s)
+            input(type='text',class='input-small',id='cigar_wrappers',ng-model='cigar.wrappers')
+            label(class='control-label',for='cigar_fillers') Filler(s)
+            input(type='text',class='input-small',id='cigar_fillers',ng-model='cigar.fillers')
+            label(class='control-label',for='cigar_binders') Binder(s)
+            input(type='text',class='input-small',id='cigar_binders',ng-model='cigar.binders')
+div(class='modal-footer')
+    button(class='btn', ng-click='close()') Cancel
+    button(class='btn btn-primary', ng-click='submit()') Save
