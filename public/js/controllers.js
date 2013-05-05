@@ -10,7 +10,7 @@ function IndexCtrl($scope, $http, $dialog) {
                 $scope.brand.established = '';
             }
             console.log('Brand data: ' + $scope.brand.name);
-            $http({method: 'GET', url: '/api/getCigarsByBrand?brand_name='+encodeURIComponent($scope.brand.name)}).
+            $http({method: 'GET', url: '/api/getCigarsByBrand?brand_name=' + encodeURIComponent($scope.brand.name)}).
                 success(function (data, status, headers, config) {
                     $scope.cigars = data.data;
                     console.log('Cigar data: ' + data.data);
@@ -23,12 +23,16 @@ function IndexCtrl($scope, $http, $dialog) {
             $scope.brand = 'Error!';
         });
     $scope.cigarOrderProp = 'name';
-    $scope.modalEdit = function(cigar){
-        var d = $dialog.dialog({modalFade: false, resolve: {cigar: function(){ return angular.copy(cigar); } }});
-        d.open('partials/edit_cigar.jade', 'EditCigarCtrl').then(function(result) {
-            console.log(JSON.stringify(cigar));
-            cigar = angular.copy(result);
-            console.log(JSON.stringify(cigar));
+    $scope.modalEdit = function (cigar) {
+        var d = $dialog.dialog({modalFade: false, resolve: {cigar: function () {
+                return angular.copy(cigar);
+            } }}),
+            modelIndex = $scope.cigars.indexOf(cigar);
+
+        d.open('partials/edit_cigar.jade', 'EditCigarCtrl').then(function (result) {
+            if (result) {
+                $scope.cigars[modelIndex] = angular.copy(result);
+            }
         });
     };
 
@@ -38,12 +42,12 @@ IndexCtrl.$inject = ['$scope', '$http', '$dialog'];
 
 function EditCigarCtrl($scope, dialog, cigar) {
     $scope.cigar = cigar;
-    $scope.submit = function(){
+    $scope.submit = function () {
         dialog.close($scope.cigar);
     };
-    $scope.close = function(){
+    $scope.close = function () {
         dialog.close();
     };
 }
-EditCigarCtrl.$inject = ['$scope', 'dialog','cigar'];
+EditCigarCtrl.$inject = ['$scope', 'dialog', 'cigar'];
 
