@@ -39,6 +39,6 @@ form(class='span10')
                     td {{cigar.strength}}
                     td {{cigar.vitola}}
                     td {{cigar.color}}
-                    td {{cigar.wrappers}}
-                    td {{cigar.fillers}}
-                    td {{cigar.binders}}
+                    td {{cigar.wrappers.join(', ')}}
+                    td {{cigar.fillers.join(', ')}}
+                    td {{cigar.binders.join(', ')}}

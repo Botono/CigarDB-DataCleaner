@@ -5,14 +5,14 @@
 function IndexCtrl($scope, $http, $dialog) {
     $http({method: 'GET', url: '/api/getABrand'}).
         success(function (data, status, headers, config) {
-            $scope.brand = data.data;
+            $scope.brand = data;
             if ($scope.brand.established === 0) {
                 $scope.brand.established = '';
             }
             console.log('Brand data: ' + $scope.brand.name);
             $http({method: 'GET', url: '/api/getCigarsByBrand?brand_name=' + encodeURIComponent($scope.brand.name)}).
                 success(function (data, status, headers, config) {
-                    $scope.cigars = data.data;
+                    $scope.cigars = data;
                     console.log('Cigar data: ' + data.data);
                 }).
                 error(function (data, status, headers, config) {
@@ -40,14 +40,16 @@ function IndexCtrl($scope, $http, $dialog) {
 }
 IndexCtrl.$inject = ['$scope', '$http', '$dialog'];
 
-function EditCigarCtrl($scope, dialog, cigar) {
+function EditCigarCtrl($scope, dialog, cigar, CigarDomainValues) {
     $scope.cigar = cigar;
+    $scope.domainValues = CigarDomainValues.query();
+    console.log($scope.domainValues);
     $scope.submit = function () {
         dialog.close($scope.cigar);
     };
     $scope.close = function () {
-        dialog.close();
+        dialog.close(false);
     };
 }
-EditCigarCtrl.$inject = ['$scope', 'dialog', 'cigar'];
+EditCigarCtrl.$inject = ['$scope', 'dialog', 'cigar', 'CigarDomainValues'];
 

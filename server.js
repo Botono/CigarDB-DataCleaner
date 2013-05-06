@@ -38,6 +38,7 @@ app.get('/api/name', api.name);
 app.get('/api/getBrands', api.getBrands);
 app.get('/api/getABrand', api.getABrand);
 app.get('/api/getCigarsByBrand', api.getCigarsByBrand);
+app.get('/api/cigarDomainValues', api.getCigarDomainvalues)
 
 // redirect all others to the index (HTML5 history)
 app.get('*', routes.index);
