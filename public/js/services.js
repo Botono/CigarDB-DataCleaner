@@ -11,4 +11,10 @@ angular.module('CigarDBDataCleaner.services', ['ngResource']).
         return $resource('/api/cigarDomainValues', {}, {
             query: {method:'GET', isArray:false}
         })
+    })
+    .factory('Cigar', function($resource) {
+        return $resource('/api/cigars/:id', {id: '@id'}, {
+            save: {method:'PUT'},
+            query: {method: 'GET', isArray: false}
+        })
     });

@@ -2,7 +2,7 @@
 
 /* Controllers */
 
-function IndexCtrl($scope, $http, $dialog) {
+function IndexCtrl($scope, $http, $dialog, Cigar) {
     $http({method: 'GET', url: '/api/getABrand'}).
         success(function (data, status, headers, config) {
             $scope.brand = data;
@@ -32,13 +32,14 @@ function IndexCtrl($scope, $http, $dialog) {
         d.open('partials/edit_cigar.jade', 'EditCigarCtrl').then(function (result) {
             if (result) {
                 $scope.cigars[modelIndex] = angular.copy(result);
+                // TODO save the cigar via the API
             }
         });
     };
 
 
 }
-IndexCtrl.$inject = ['$scope', '$http', '$dialog'];
+IndexCtrl.$inject = ['$scope', '$http', '$dialog', 'Cigar'];
 
 function EditCigarCtrl($scope, dialog, cigar, CigarDomainValues) {
     $scope.cigar = cigar;
