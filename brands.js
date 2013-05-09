@@ -3,7 +3,12 @@ var
     api_key = '2483f102-e4ae-4b41-b56f-e9e344ef9083',
     http = require('http');
 
-brands.get = function (req, res) {
+
+brands.save = function (req, res) {
+    res.send(500);
+};
+
+brands.query = function (req, res) {
     var options_obj = {
             hostname: 'localhost',
             port: 8080,
@@ -36,14 +41,6 @@ brands.get = function (req, res) {
         res.send(err);
     });
     api_req.end();
-};
-
-brands.save = function (req, res) {
-    res.send(500);
-};
-
-brands.query = function (req, res) {
-    res.send(501);
 };
 
 brands.remove = function (req, res) {
