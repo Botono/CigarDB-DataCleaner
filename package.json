@@ -1,6 +1,10 @@
 {
-    "name": "cigardb-datacleaner", "version": "0.0.1", "private": true, "dependencies": {
-    "express": "3.x",
-    "jade": ">= 0.30.x"
-}
+    "name": "cigardb-datacleaner",
+    "version": "0.0.1",
+    "private": true,
+    "dependencies": {
+        "express": "3.x",
+        "jade": ">= 0.30.x",
+        "angular-resource": "0.1.x"
+    }
 }
