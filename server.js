@@ -36,8 +36,9 @@ app.get('/partials/:name', routes.partials);
 
 app.get('/api/name', api.name);
 app.get('/api/getBrands', api.getBrands);
-app.get('/api/getABrand', api.getABrand);
+app.get('/api/brand', api.getABrand);
 app.get('/api/getCigarsByBrand', api.getCigarsByBrand);
+app.get('/api/cigars', api.getCigarsByBrand);
 app.get('/api/cigarDomainValues', api.getCigarDomainvalues);
 //app.get('/api/cigars', api.getCigars);
 app.put('/api/cigars/:id', api.updateCigar);

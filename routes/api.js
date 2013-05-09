@@ -39,6 +39,9 @@ exports.getABrand = function(req, res) {
 
             api_res.on('end', function() {
                 return_obj = JSON.parse(output);
+                if (return_obj.data.established == 0) {
+                    return_obj.data.established = '';
+                }
                 res.send(200, return_obj.data);
             })
         }
@@ -55,11 +58,11 @@ exports.getCigarsByBrand = function(req, res) {
             hostname: 'localhost',
             port: 8080,
             method: 'GET',
-            path: '/cigars?brand='+encodeURIComponent(req.query.brand_name)+'&api_key='+api_key
+            path: '/cigars?brand='+encodeURIComponent(req.query.brand)+'&api_key='+api_key
         },
 
         return_obj = '';
-    console.log('GETTING CIGARS BY BRAND: '+req.query.brand_name);
+    console.log('GETTING CIGARS BY BRAND: '+req.query.brand);
     var api_req = http.request(options_obj, function(api_res) {
         var output = '';
         if (api_res.statusCode == 200) {
@@ -143,13 +146,24 @@ exports.getCigarDomainvalues = function(req, res) {
 };
 
 exports.updateCigar = function(req, res) {
-    var options_obj = {
+    req.body.api_key = api_key;
+
+    var
+        bodyString = JSON.stringify(req.body),
+        headers = {
+            'Content-Type': 'application/json',
+            'Content-Length': bodyString.length
+        },
+        options_obj = {
             hostname: 'localhost',
             port: 8080,
             method: 'PUT',
-            path: '/cigars/'+encodeURIComponent(req.query.id)+'?api_key='+api_key
+            path: '/cigars/'+encodeURIComponent(req.body.id),
+            headers: headers
         },
         return_obj = '';
+    console.log('UPDATE CIGAR DATA: '+ JSON.stringify(req.body));
+
     var api_req = http.request(options_obj, function(api_res) {
         var output = '';
         if (api_res.statusCode == 200) {
@@ -165,7 +179,7 @@ exports.updateCigar = function(req, res) {
             })
         }
     });
-
+    api_req.write(bodyString);
     api_req.on('error', function(err) {
         res.send(err);
     });

@@ -1,31 +1,35 @@
 div(class='modal-header')
     h3 Edit Cigar
 div(class='modal-body')
-    form
-        fieldset
-            input(type='hidden',name='cigar_id',ng-model='cigar.id')
-            label(class='control-label',for='cigar_name') Name
-            input(type='text',class='input-large',id='cigar_name',ng-model='cigar.name')
-            label(class='control-label',for='cigar_brand') Brand
-            input(type='text',class='input-large',id='cigar_name',ng-model='cigar.brand')
-            label(class='control-label',for='cigar_country') Country
-            select(id='cigar_country',ng-model='cigar.country',ng-options='c for c in domainValues.country')
-            label(class='control-label',for='cigar_length') Length
-            input(type='text',class='input-mini',id='cigar_length',ng-model='cigar.length')
-            label(class='control-label',for='cigar_ring_gauge') Ring Gauge
-            input(type='text',class='input-mini',id='cigar_ring_gauge',ng-model='cigar.ring_gauge')
-            label(class='control-label',for='cigar_strength') Strength
-            select(id='cigar_strength',ng-model='cigar.strength',ng-options='s for s in domainValues.strength')
-            label(class='control-label',for='cigar_vitola') Vitola
-            select(id='cigar_vitola',ng-model='cigar.vitola',ng-options='v for v in domainValues.vitola')
-            label(class='control-label',for='cigar_color') Color
-            select(id='cigar_color',ng-model='cigar.color',ng-options='c for c in domainValues.color')
-            label(class='control-label',for='cigar_wrappers') Wrapper(s)
-            select(id='cigar_wrappers',multiple='true',ng-model='cigar.wrappers',ng-options='w for w in domainValues.wrappers')
-            label(class='control-label',for='cigar_fillers') Filler(s)
-            select(id='cigar_fillers',multiple='true',ng-model='cigar.fillers',ng-options='f for f in domainValues.fillers')
-            label(class='control-label',for='cigar_binders') Binder(s)
-            select(id='cigar_binders',multiple='true',ng-model='cigar.binders',ng-options='b for b in domainValues.binders')
+    div(class='row-fluid')
+        form
+            div(class='span4')
+                fieldset
+                    input(type='hidden',name='cigar_id',ng-model='cigar.id')
+                    label(class='control-label',for='cigar_name') Name
+                    input(type='text',class='input-large',id='cigar_name',ng-model='cigar.name')
+                    label(class='control-label',for='cigar_brand') Brand
+                    input(type='text',class='input-large',id='cigar_name',ng-model='cigar.brand')
+                    label(class='control-label',for='cigar_country') Country
+                    select(id='cigar_country',ng-model='cigar.country',ng-options='c for c in domainValues.country')
+                    label(class='control-label',for='cigar_length') Length
+                    input(type='text',class='input-mini',id='cigar_length',ng-model='cigar.length')
+                    label(class='control-label',for='cigar_ring_gauge') Ring Gauge
+                    input(type='text',class='input-mini',id='cigar_ring_gauge',ng-model='cigar.ring_gauge')
+                    label(class='control-label',for='cigar_strength') Strength
+                    select(id='cigar_strength',ng-model='cigar.strength',ng-options='s for s in domainValues.strength')
+                    label(class='control-label',for='cigar_vitola') Vitola
+                    select(id='cigar_vitola',ng-model='cigar.vitola',ng-options='v for v in domainValues.vitola')
+                    label(class='control-label',for='cigar_color') Color
+                    select(id='cigar_color',ng-model='cigar.color',ng-options='c for c in domainValues.color')
+            div(class='span3 offset2')
+                fieldset
+                    label(class='control-label',for='cigar_wrappers') Wrapper(s)
+                    select(id='cigar_wrappers',multiple='true',ng-model='cigar.wrappers',ng-options='w for w in domainValues.wrappers')
+                    label(class='control-label',for='cigar_fillers') Filler(s)
+                    select(id='cigar_fillers',multiple='true',ng-model='cigar.fillers',ng-options='f for f in domainValues.fillers')
+                    label(class='control-label',for='cigar_binders') Binder(s)
+                    select(id='cigar_binders',multiple='true',ng-model='cigar.binders',ng-options='b for b in domainValues.binders')
 div(class='modal-footer')
     button(class='btn', ng-click='close()') Cancel
     button(class='btn btn-primary', ng-click='submit()') Save

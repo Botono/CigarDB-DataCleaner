@@ -2,26 +2,12 @@
 
 /* Controllers */
 
-function IndexCtrl($scope, $http, $dialog, Cigar) {
-    $http({method: 'GET', url: '/api/getABrand'}).
-        success(function (data, status, headers, config) {
-            $scope.brand = data;
-            if ($scope.brand.established === 0) {
-                $scope.brand.established = '';
-            }
-            console.log('Brand data: ' + $scope.brand.name);
-            $http({method: 'GET', url: '/api/getCigarsByBrand?brand_name=' + encodeURIComponent($scope.brand.name)}).
-                success(function (data, status, headers, config) {
-                    $scope.cigars = data;
-                    console.log('Cigar data: ' + data.data);
-                }).
-                error(function (data, status, headers, config) {
-                    $scope.cigars = 'Error!';
-                });
-        }).
-        error(function (data, status, headers, config) {
-            $scope.brand = 'Error!';
-        });
+function IndexCtrl($scope, $http, $dialog, Cigar, Brand) {
+    $scope.brand = Brand.get({}, function() {
+        console.log('BRAND NAME: ' + $scope.brand.name);
+        $scope.cigars = Cigar.query({brand: $scope.brand.name});
+    });
+
     $scope.cigarOrderProp = 'name';
     $scope.modalEdit = function (cigar) {
         var d = $dialog.dialog({modalFade: false, resolve: {cigar: function () {
@@ -32,18 +18,19 @@ function IndexCtrl($scope, $http, $dialog, Cigar) {
         d.open('partials/edit_cigar.jade', 'EditCigarCtrl').then(function (result) {
             if (result) {
                 $scope.cigars[modelIndex] = angular.copy(result);
-                // TODO save the cigar via the API
+                console.log(JSON.stringify(result));
+                $scope.cigars[modelIndex].$save();
             }
         });
     };
 
 
 }
-IndexCtrl.$inject = ['$scope', '$http', '$dialog', 'Cigar'];
+IndexCtrl.$inject = ['$scope', '$http', '$dialog', 'Cigar', 'Brand'];
 
 function EditCigarCtrl($scope, dialog, cigar, CigarDomainValues) {
     $scope.cigar = cigar;
-    $scope.domainValues = CigarDomainValues.query();
+    $scope.domainValues = CigarDomainValues.get();
     console.log($scope.domainValues);
     $scope.submit = function () {
         dialog.close($scope.cigar);
