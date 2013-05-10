@@ -12,7 +12,7 @@ angular.module('CigarDBDataCleaner.services', ['ngResource']).
     })
     .factory('Cigar', function ($resource) {
         return $resource('/api/cigars/:id', {id: '@id'}, {
-            save: {method: 'PUT'}
+            create: {method: 'POST'}
         });
     })
     .factory('Brand', function ($resource) {

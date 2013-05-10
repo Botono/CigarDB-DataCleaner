@@ -1,0 +1,12 @@
+div(class='modal-header')
+    h3 Delete Cigar
+div(class='modal-body')
+    div(class='row-fluid')
+        form
+            fieldset
+                label(class='control-label',for='cigar_reason') Reason
+                textarea(id='cigar_reason',name='cigar_reason',ng-model='cigar.reason')
+
+div(class='modal-footer')
+    button(class='btn', ng-click='close()') Cancel
+    button(class='btn btn-primary', ng-click='submit()') Submit

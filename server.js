@@ -37,15 +37,8 @@ app.get('/partials/:name', routes.partials);
 
 angularResource(app, '/api', 'cigars');
 angularResource(app, '/api', 'brands');
-/*
- app.get('/api/getBrands', api.getBrands);
- app.get('/api/brand', api.getABrand);
- app.get('/api/getCigarsByBrand', api.getCigarsByBrand);
- app.get('/api/cigars', api.getCigarsByBrand);
- app.get('/api/cigarDomainValues', api.getCigarDomainvalues);
- //app.get('/api/cigars', api.getCigars);
- app.put('/api/cigars/:id', api.updateCigar);
- */
+angularResource(app, '/api', 'cigarDomainValues');
+
 // redirect all others to the index (HTML5 history)
 app.get('*', routes.index);
 

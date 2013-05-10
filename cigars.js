@@ -16,19 +16,27 @@ cigars.save = function (req, res) {
             'Content-Type': 'application/json',
             'Content-Length': bodyString.length
         },
+        pathString = (req.body.id) ? '/cigars/' + encodeURIComponent(req.body.id) : '/cigars',
+        methodString = (req.body.id) ? 'PUT' : 'POST',
         options_obj = {
             hostname: 'localhost',
             port: 8080,
-            method: 'PUT',
-            path: '/cigars/' + encodeURIComponent(req.body.id),
+            method: methodString,
+            path: pathString,
             headers: headers
         },
         return_obj = '';
-    console.log('UPDATE CIGAR DATA: ' + JSON.stringify(req.body));
+
+    if (req.body.id) {
+        console.log('UPDATE CIGAR DATA: ' + JSON.stringify(req.body));
+    } else {
+        console.log('CREATE CIGAR DATA: ' + JSON.stringify(req.body));
+    }
+
 
     var api_req = http.request(options_obj, function (api_res) {
         var output = '';
-        if (api_res.statusCode == 200) {
+        if (api_res.statusCode == 202) {
             api_res.setEncoding('utf8');
 
             api_res.on('data', function (chunk) {
@@ -37,7 +45,7 @@ cigars.save = function (req, res) {
 
             api_res.on('end', function () {
                 return_obj = JSON.parse(output);
-                res.send(200, return_obj.data);
+                res.send(202, return_obj.data);
             })
         }
     });
@@ -81,7 +89,48 @@ cigars.query = function (req, res) {
 };
 
 cigars.remove = function (req, res) {
-    res.send(500);
+    req.body.api_key = api_key;
+    req.body.reason = req.query.reason;
+
+    var
+        bodyString = JSON.stringify(req.body),
+        headers = {
+            'Content-Type': 'application/json',
+            'Content-Length': bodyString.length
+        },
+        pathString = '/cigars/' + encodeURIComponent(req.params.id),
+        options_obj = {
+            hostname: 'localhost',
+            port: 8080,
+            method: 'DELETE',
+            path: pathString,
+            headers: headers
+        },
+        return_obj = '';
+
+
+    console.log('DELETE CIGAR DATA: ' + pathString);
+
+    var api_req = http.request(options_obj, function (api_res) {
+        var output = '';
+
+        if (api_res.statusCode == 200 || api_res.statusCode == 202) {
+            api_res.setEncoding('utf8');
+            api_res.on('data', function (chunk) {
+                output += chunk;
+            });
+
+            api_res.on('end', function () {
+                return_obj = JSON.parse(output);
+                res.send(200, return_obj.data);
+            })
+        }
+    });
+    api_req.write(bodyString);
+    api_req.on('error', function (err) {
+        res.send(err);
+    });
+    api_req.end();
 };
 
 module.exports = cigars;

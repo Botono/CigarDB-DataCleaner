@@ -5,12 +5,24 @@ html(ng-app="CigarDBDataCleaner")
         base(href='/')
         title CigarDB Data Cleanup
         link(rel='stylesheet', href='/css/app.css')
+        style
+            body {
+                padding-top: 60px;
+            }
+
+            @media (max-width: 980px) {
+                body {
+                    padding-top: 0;
+                }
+            }
     body
+
+        div(class='navbar navbar-fixed-top', bs-navbar)
+            div(class='navbar-inner')
+                div(class='container-fluid')
+                    a(class='brand', href='#') CigarDB Data Cleanup
         div(class='container-fluid')
             div(class='row-fluid')
-                div(class='navbar', bs-navbar)
-                        div(class='navbar-inner')
-                            a(class='brand', href='#') CigarDB Data Cleanup
                 block content
     script(src='http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js')
     script(src='js/lib/angular/angular.js')

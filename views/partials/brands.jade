@@ -13,9 +13,11 @@ form(class='span2')
 form(class='span10')
     fieldset
         legend Cigars
+            button(class='btn btn-small btn-success',ng-click='modalWindow("add")') Add
         table(class='table table-bordered table-striped table-hover')
             thead
                 tr
+                    th
                     th Name
                     th Brand
                     th Country
@@ -30,8 +32,11 @@ form(class='span10')
             tbody
                 tr(ng-repeat='cigar in cigars | orderBy:cigarOrderProp')
                     td
-                        {{cigar.name}}
-                        button(class='btn btn-primary btn-small',ng-click='modalEdit(cigar)') Edit
+                        button(class='btn btn-primary btn-small',ng-click='modalWindow("edit", cigar)')
+                            i(class='icon-edit icon-white')
+                        button(class='btn btn-danger btn-small',ng-click='modalWindow("delete", cigar)')
+                            i(class='icon-remove icon-white')
+                    td {{cigar.name}}
                     td {{cigar.brand}}
                     td {{cigar.country}}
                     td {{cigar.length}}
