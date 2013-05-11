@@ -1,15 +1,17 @@
 div(class='modal-header')
-    h3 Edit Cigar
+    h3 {{pageTitle}}
 div(class='modal-body')
     div(class='row-fluid')
         form
             div(class='span4')
                 fieldset
                     input(type='hidden',name='cigar_id',ng-model='cigar.id')
+                    input(type='hidden',name='cigar_brand',ng-model='cigar.brand')
                     label(class='control-label',for='cigar_name') Name
                     input(type='text',class='input-large',id='cigar_name',ng-model='cigar.name')
                     label(class='control-label',for='cigar_brand') Brand
-                    input(type='text',class='input-large',id='cigar_name',ng-model='cigar.brand')
+                    input(type='text',class='input-large',id='cigar_brand',ng-model='cigar.brand',ui-if='purpose=="edit"')
+                    span(class='input-large uneditable-input',ng-model='cigar.brand',ui-if='purpose=="add"') {{cigar.brand}}
                     label(class='control-label',for='cigar_country') Country
                     select(id='cigar_country',ng-model='cigar.country',ng-options='c for c in domainValues.country')
                     label(class='control-label',for='cigar_length') Length
@@ -31,5 +33,5 @@ div(class='modal-body')
                     label(class='control-label',for='cigar_binders') Binder(s)
                     select(id='cigar_binders',multiple='true',ng-model='cigar.binders',ng-options='b for b in domainValues.binders')
 div(class='modal-footer')
-    button(class='btn', ng-click='close()') Cancel
     button(class='btn btn-primary', ng-click='submit()') Save
+    button(class='btn', ng-click='close()') Cancel

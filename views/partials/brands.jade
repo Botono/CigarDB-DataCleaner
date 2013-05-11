@@ -2,6 +2,7 @@ form(class='span2')
     fieldset
         legend Brand
         input(type='hidden',name='brand_id',ng-model='brand.id')
+        input(type='hidden',name='brand_cleaned',ng-model='brand.cleaned')
         label(class='control-label',for='brand_name') Name
         input(type='text',class='input-large',id='brand_name',ng-model='brand.name')
         label(class='control-label',for='brand_established') Established
@@ -13,7 +14,7 @@ form(class='span2')
 form(class='span10')
     fieldset
         legend Cigars
-            button(class='btn btn-small btn-success',ng-click='modalWindow("add")') Add
+            button(class='btn btn-small btn-success',ng-click='modalWindow("add",{brand:brand.name})') Add
         table(class='table table-bordered table-striped table-hover')
             thead
                 tr

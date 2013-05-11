@@ -36,7 +36,7 @@ cigars.save = function (req, res) {
 
     var api_req = http.request(options_obj, function (api_res) {
         var output = '';
-        if (api_res.statusCode == 202) {
+        if (api_res.statusCode == 202 || api_res.statusCode == 200) {
             api_res.setEncoding('utf8');
 
             api_res.on('data', function (chunk) {

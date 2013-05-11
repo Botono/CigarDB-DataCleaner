@@ -7,4 +7,10 @@ angular.module('CigarDBDataCleaner.filters', []).
         return function (text) {
             return String(text).replace(/\%VERSION\%/mg, version);
         }
-    }]);
+    }]).
+    filter('titlecase', function () {
+        return function (input) {
+            return input.charAt(0).toUpperCase() + input.slice(1);
+        }
+    })
+;

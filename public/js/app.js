@@ -2,8 +2,8 @@
 
 
 // Declare app level module which depends on filters, and services
-angular.module('CigarDBDataCleaner', ['CigarDBDataCleaner.filters', 'CigarDBDataCleaner.services', 'CigarDBDataCleaner.directives', 'ui.bootstrap']).
-    config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
+angular.module('CigarDBDataCleaner', ['CigarDBDataCleaner.filters', 'CigarDBDataCleaner.services', 'CigarDBDataCleaner.directives', 'ui.bootstrap', 'ui.utils']).
+    config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
         $routeProvider.
             when('/', {
                 templateUrl: 'partials/brands',

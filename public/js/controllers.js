@@ -9,12 +9,17 @@ function IndexCtrl($scope, $http, $dialog, Cigar, Brand) {
     });
 
     $scope.cigarOrderProp = 'name';
-    $scope.newCigar = {};
 
     $scope.modalWindow = function (purpose, cigar) {
-        var d = $dialog.dialog({modalFade: false, resolve: {cigar: function () {
-                return angular.copy(cigar);
-            } }}),
+        var d = $dialog.dialog({
+                modalFade: false,
+                resolve: {
+                    cigar: function () {
+                        return angular.copy(cigar);
+                    },
+                    purpose: function () {
+                        return purpose;
+                    }}}),
             modelIndex = $scope.cigars.indexOf(cigar),
             modalTemplate = '';
 
@@ -28,24 +33,22 @@ function IndexCtrl($scope, $http, $dialog, Cigar, Brand) {
             if (result) {
                 var resultCopy = angular.copy(result);
                 if (purpose == 'delete') {
+                    if (!resultCopy.reason) {
+                        resultCopy.reason = '';
+                    }
                     $scope.cigars[modelIndex] = resultCopy;
-                    console.log('ID: ' + resultCopy.id + ' REASON: ' + resultCopy.reason);
                     $scope.cigars[modelIndex].$remove({id: resultCopy.id, reason: resultCopy.reason}, function (res) {
-                        console.log('DELETE FINISHED');  // TODO $delete is not calling the callbacks
                         $scope.cigars.splice(modelIndex, 1);
                     }, function (res) {
-                        console.log('DELETE ERROR?');
                     });
 
                 } else {
                     if (modelIndex == -1) {
-                        console.log('ADDING CIGAR');
-                        var newCigar = new Cigar();
+                        var newCigar = {};
                         angular.extend(newCigar, resultCopy);
-                        $scope.newCigar = angular.copy(newCigar);
-                        newCigar.$save({}, function (res) {
-                            $scope.newCigar.id = res.id;
-                            $scope.cigars.push($scope.newCigar);
+                        Cigar.save(newCigar, newCigar, function (res) { // I don't understand this method, but it works
+                            newCigar.id = res.id;
+                            $scope.cigars.push(newCigar);
                         });
                     } else {
                         $scope.cigars[modelIndex] = resultCopy;
@@ -60,10 +63,13 @@ function IndexCtrl($scope, $http, $dialog, Cigar, Brand) {
 }
 IndexCtrl.$inject = ['$scope', '$http', '$dialog', 'Cigar', 'Brand'];
 
-function ModalCtrl($scope, dialog, cigar, CigarDomainValues) {
+function ModalCtrl($scope, dialog, cigar, purpose, CigarDomainValues, $filter) {
     $scope.cigar = cigar;
+    $scope.pageTitle = $filter('titlecase')(purpose) + ' Cigar';
+    $scope.purpose = purpose;
     $scope.domainValues = CigarDomainValues.get();
-    console.log($scope.domainValues);
+    $scope.brandShow = ($scope.purpose == 'add') ? false : true;
+
     $scope.submit = function () {
         dialog.close($scope.cigar);
     };
@@ -71,5 +77,5 @@ function ModalCtrl($scope, dialog, cigar, CigarDomainValues) {
         dialog.close(false);
     };
 }
-ModalCtrl.$inject = ['$scope', 'dialog', 'cigar', 'CigarDomainValues'];
+ModalCtrl.$inject = ['$scope', 'dialog', 'cigar', 'purpose', 'CigarDomainValues', '$filter'];
 

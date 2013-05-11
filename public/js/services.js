@@ -11,9 +11,7 @@ angular.module('CigarDBDataCleaner.services', ['ngResource']).
         return $resource('/api/cigarDomainValues', {}, {});
     })
     .factory('Cigar', function ($resource) {
-        return $resource('/api/cigars/:id', {id: '@id'}, {
-            create: {method: 'POST'}
-        });
+        return $resource('/api/cigars/:id', {id: '@id'}, {});
     })
     .factory('Brand', function ($resource) {
         return $resource('/api/brands/:id', {id: '@id'}, {});
